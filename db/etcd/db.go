@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"google.golang.org/grpc"
 	"strings"
 	"time"
 
@@ -144,10 +143,10 @@ func (crt etcdCreator) Create(prop *properties.Properties) (ycsb.DB, error) {
 		Endpoints:   endpoints,
 		DialTimeout: prop.GetParsedDuration(etcdDialTimeout, time.Second*5),
 		// set this one in particular, because we don't want to start any benchmarking without connecting properly first
-		DialOptions: []grpc.DialOption{grpc.WithBlock()},
+		//DialOptions: []grpc.DialOption{grpc.WithBlock()},
 	})
 	if err != nil {
-		fmt.Printf("setup err: %v", err)
+		fmt.Printf("setup err: %v\n", err)
 		return nil, err
 	}
 	return &etcdClient{
