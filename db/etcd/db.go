@@ -147,6 +147,7 @@ func (crt etcdCreator) Create(prop *properties.Properties) (ycsb.DB, error) {
 		DialOptions: []grpc.DialOption{grpc.WithBlock()},
 	})
 	if err != nil {
+		fmt.Printf("setup err: %v", err)
 		return nil, err
 	}
 	return &etcdClient{
