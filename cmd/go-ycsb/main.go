@@ -41,8 +41,8 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/basic"
 	// Register MySQL database
 	_ "github.com/pingcap/go-ycsb/db/mysql"
-	// Register TiKV database
-	_ "github.com/pingcap/go-ycsb/db/tikv"
+	//// Register TiKV database
+	//_ "github.com/pingcap/go-ycsb/db/tikv"
 	// Register PostgreSQL database
 	_ "github.com/pingcap/go-ycsb/db/pg"
 	// Register Aerospike database
@@ -51,8 +51,8 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/badger"
 	// Register RocksDB database
 	_ "github.com/pingcap/go-ycsb/db/rocksdb"
-	// Register Spanner database
-	_ "github.com/pingcap/go-ycsb/db/spanner"
+	//// Register Spanner database
+	//_ "github.com/pingcap/go-ycsb/db/spanner"
 	// Register pegasus database
 	_ "github.com/pingcap/go-ycsb/db/pegasus"
 	// Register sqlite database
@@ -67,6 +67,8 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/boltdb"
 	// Register minio
 	_ "github.com/pingcap/go-ycsb/db/minio"
+	// Register etcd
+	_ "github.com/pingcap/go-ycsb/db/etcd"
 )
 
 var (
