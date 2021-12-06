@@ -44,7 +44,6 @@ require (
 	go.uber.org/multierr v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/text v0.3.6 // indirect
-	google.golang.org/grpc v1.38.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.42.0 // indirect
 	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
@@ -55,6 +54,6 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 
 // https://github.com/etcd-io/etcd/issues/12124
 // fix not in main etc client API yet, it seems
-replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
+// replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
 go 1.13
