@@ -137,7 +137,6 @@ retry:
 	for {
 		select {
 		case resp := <-client.outCh:
-			fmt.Printf("resp: %v\n", resp)
 			if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
 				continue // the client will retry for us
 			}
