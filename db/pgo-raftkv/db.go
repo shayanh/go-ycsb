@@ -64,7 +64,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 		distsys.EnsureArchetypeRefParam("net", resources.TCPMailboxesMaker(func(idx tla.TLAValue) (resources.MailboxKind, string) {
 			if idx.Equal(self) {
 				return resources.MailboxesLocal, idx.AsString()
-			} else if idx.IsNumber() && int(idx.AsNumber()) < len(cfg.endpoints) {
+			} else if idx.IsNumber() && int(idx.AsNumber()) <= len(cfg.endpoints) {
 				return resources.MailboxesRemote, cfg.endpoints[int(idx.AsNumber())-1]
 			} else if idx.IsString() {
 				return resources.MailboxesRemote, idx.AsString()
@@ -74,7 +74,8 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 		})),
 		distsys.EnsureArchetypeRefParam("fd", resources.FailureDetectorMaker(
 			func(index tla.TLAValue) string {
-				monAddr, ok := cfg.endpointMonitors[index.AsString()]
+				endpoint := cfg.endpoints[index.AsNumber()-1]
+				monAddr, ok := cfg.endpointMonitors[endpoint]
 				if !ok {
 					panic(fmt.Errorf("%v is not a server whose monitor we know! options: %v", index, cfg.endpointMonitors))
 				}
@@ -95,6 +96,9 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 	return context.WithValue(ctx, threadIdxTag{}, &raftClientThread{
 		clientCtx: clientCtx,
 		errCh:     errCh,
+		inCh:      inChan,
+		outCh:     outChan,
+		timeoutCh: timeoutCh,
 	})
 }
 
@@ -130,34 +134,42 @@ retry:
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
 	})
 
-	select {
-	case resp := <-client.outCh:
-		if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
+	for {
+		select {
+		case resp := <-client.outCh:
+			fmt.Printf("resp: %v\n", resp)
+			if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
+				continue // the client will retry for us
+			}
+			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
+			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
+			respKey := mresp.ApplyFunction(tla.MakeTLAString("key")).AsString()
+			assert(typ.Equal(raftkvs.ClientGetResponse(client.clientCtx.IFace())))
+			assert(respKey == keyStr)
+
+			if !mresp.ApplyFunction(tla.MakeTLAString("ok")).AsBool() {
+				return nil, fmt.Errorf("key not found: %s", keyStr)
+			}
+
+			result := make(map[string][]byte)
+			it := mresp.ApplyFunction(tla.MakeTLAString("value")).AsFunction().Iterator()
+			for !it.Done() {
+				k, v := it.Next()
+				kStr := k.(tla.TLAValue).AsString()
+				if fieldFilter == nil || fieldFilter[kStr] {
+					result[kStr] = []byte(v.(tla.TLAValue).AsString())
+				}
+			}
+			return result, nil
+		case <-time.After(cfg.requestTimeout):
+			// clear timeout channel
+			select {
+			case <-client.timeoutCh:
+			default:
+			}
+			client.timeoutCh <- tla.TLA_TRUE
 			goto retry
 		}
-		typ := resp.ApplyFunction(tla.MakeTLAString("type"))
-		respKey := resp.ApplyFunction(tla.MakeTLAString("key")).AsString()
-		assert(typ.Equal(raftkvs.ClientGetResponse(client.clientCtx.IFace())))
-		assert(respKey == keyStr)
-
-		result := make(map[string][]byte)
-		it := resp.ApplyFunction(tla.MakeTLAString("value")).AsFunction().Iterator()
-		for !it.Done() {
-			k, v := it.Next()
-			kStr := k.(tla.TLAValue).AsString()
-			if fieldFilter == nil || fieldFilter[kStr] {
-				result[kStr] = []byte(v.(tla.TLAValue).AsString())
-			}
-		}
-		return result, nil
-	case <-time.After(cfg.requestTimeout):
-		// clear timeout channel
-		select {
-		case <-client.timeoutCh:
-		default:
-		}
-		client.timeoutCh <- tla.TLA_TRUE
-		goto retry
 	}
 }
 
@@ -196,30 +208,33 @@ retry:
 	}
 
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
-		{Key: tla.MakeTLAString("type"), Value: raftkvs.Get(client.clientCtx.IFace())},
+		{Key: tla.MakeTLAString("type"), Value: raftkvs.Put(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
 		{Key: tla.MakeTLAString("value"), Value: kvFn},
 	})
 
-	select {
-	case resp := <-client.outCh:
-		if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
+	for {
+		select {
+		case resp := <-client.outCh:
+			if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
+				continue // the client will retry for us
+			}
+			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
+			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
+			respKey := mresp.ApplyFunction(tla.MakeTLAString("key")).AsString()
+			assert(typ.Equal(raftkvs.ClientPutResponse(client.clientCtx.IFace())))
+			assert(respKey == keyStr)
+			assert(mresp.ApplyFunction(tla.MakeTLAString("value")).Equal(kvFn))
+			return nil
+		case <-time.After(cfg.requestTimeout):
+			// clear timeout channel
+			select {
+			case <-client.timeoutCh:
+			default:
+			}
+			client.timeoutCh <- tla.TLA_TRUE
 			goto retry
 		}
-		typ := resp.ApplyFunction(tla.MakeTLAString("type"))
-		respKey := resp.ApplyFunction(tla.MakeTLAString("key")).AsString()
-		assert(typ.Equal(raftkvs.ClientPutResponse(client.clientCtx.IFace())))
-		assert(respKey == keyStr)
-		assert(resp.ApplyFunction(tla.MakeTLAString("value")).Equal(kvFn))
-		return nil
-	case <-time.After(cfg.requestTimeout):
-		// clear timeout channel
-		select {
-		case <-client.timeoutCh:
-		default:
-		}
-		client.timeoutCh <- tla.TLA_TRUE
-		goto retry
 	}
 }
 
@@ -252,7 +267,7 @@ func (_ raftCreator) Create(props *properties.Properties) (ycsb.DB, error) {
 		if len(pair) != 2 {
 			return nil, fmt.Errorf("count not parse mapping %s in %s; expecting endpoint:mport->monitor:mport", pairStr, pgoRaftKVEndpointMonitors)
 		}
-		endPointMonitorMap[pair[0]] = pair[0]
+		endPointMonitorMap[pair[0]] = pair[1]
 	}
 
 	clientReplyPoints, ok := props.Get(pgoRaftKVClientReplyPoints)
