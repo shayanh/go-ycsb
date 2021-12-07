@@ -107,7 +107,7 @@ func (etcd *etcdClient) Update(ctx context.Context, table string, key string, va
 	for k := range values {
 		result[k] = values[k]
 	}
-	return etcd.Insert(ctx, table, key, values)
+	return etcd.Insert(ctx, table, key, result)
 }
 
 func (etcd *etcdClient) Insert(ctx context.Context, table string, key string, values map[string][]byte) error {
@@ -142,11 +142,8 @@ func (crt etcdCreator) Create(prop *properties.Properties) (ycsb.DB, error) {
 	client, err := clientv3.New(clientv3.Config{
 		Endpoints:   endpoints,
 		DialTimeout: prop.GetParsedDuration(etcdDialTimeout, time.Second*5),
-		// set this one in particular, because we don't want to start any benchmarking without connecting properly first
-		//DialOptions: []grpc.DialOption{grpc.WithBlock()},
 	})
 	if err != nil {
-		fmt.Printf("setup err: %v\n", err)
 		return nil, err
 	}
 	return &etcdClient{

@@ -69,6 +69,8 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/minio"
 	// Register etcd
 	_ "github.com/pingcap/go-ycsb/db/etcd"
+	// Register pgo-raftkv
+	_ "github.com/pingcap/go-ycsb/db/pgo-raftkv"
 )
 
 var (

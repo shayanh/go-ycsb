@@ -1,7 +1,9 @@
 module github.com/pingcap/go-ycsb
 
 require (
+	example.org/raftkvs v0.0.0-00010101000000-000000000000
 	github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 // indirect
+	github.com/UBC-NSS/pgo/distsys v0.0.0-00010101000000-000000000000
 	github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c
 	github.com/aerospike/aerospike-client-go v1.35.2
 	github.com/apache/thrift v0.0.0-20171203172758-327ebb6c2b6d // indirect
@@ -41,7 +43,6 @@ require (
 	github.com/yuin/gopher-lua v0.0.0-20181031023651-12c4817b42c5 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.0
 	go.mongodb.org/mongo-driver v1.0.2
-	go.uber.org/multierr v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/text v0.3.6 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
@@ -55,5 +56,9 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 // https://github.com/etcd-io/etcd/issues/12124
 // fix not in main etc client API yet, it seems
 // replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
+
+replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211207053342-c8846da076f7
+
+replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211207053342-c8846da076f7
 
 go 1.13
