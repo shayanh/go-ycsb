@@ -10,6 +10,7 @@ import (
 	"github.com/UBC-NSS/pgo/distsys/tla"
 	"github.com/magiconair/properties"
 	"github.com/pingcap/go-ycsb/pkg/ycsb"
+	"go.uber.org/multierr"
 	"strings"
 	"time"
 )
@@ -25,6 +26,8 @@ type raftClient struct {
 	endpointMonitors  map[string]string
 	clientReplyPoints []string
 	requestTimeout    time.Duration
+
+	clientThreads []*raftClientThread
 }
 
 type threadIdxTag struct{}
@@ -40,7 +43,12 @@ func (cfg *raftClient) ToSqlDB() *sql.DB {
 }
 
 func (cfg *raftClient) Close() error {
-	return nil
+	var err error
+	for _, client := range cfg.clientThreads {
+		client.clientCtx.Stop()
+		err = multierr.Append(err, <-client.errCh)
+	}
+	return err
 }
 
 func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCount int) context.Context {
@@ -90,26 +98,28 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 		distsys.EnsureArchetypeDerivedRefParam("netLen", "net", resources.MailboxesLengthMaker),
 		distsys.EnsureArchetypeRefParam("timeout", resources.InputChannelMaker(timeoutCh)))
 
-	go func() {
-		errCh <- clientCtx.Run()
-	}()
-
-	return context.WithValue(ctx, threadIdxTag{}, &raftClientThread{
+	clientThread := &raftClientThread{
 		clientCtx: clientCtx,
 		errCh:     errCh,
 		inCh:      inChan,
 		outCh:     outChan,
 		timeoutCh: timeoutCh,
-	})
+	}
+
+	cfg.clientThreads = append(cfg.clientThreads, clientThread)
+	if len(cfg.clientThreads) > threadCount {
+		panic("too many client threads!")
+	}
+
+	go func() {
+		errCh <- clientCtx.Run()
+	}()
+
+	return context.WithValue(ctx, threadIdxTag{}, clientThread)
 }
 
-func (cfg *raftClient) CleanupThread(ctx context.Context) {
-	client := ctx.Value(threadIdxTag{}).(*raftClientThread)
-	client.clientCtx.Stop()
-	err := <-client.errCh
-	if err != nil {
-		panic(err)
-	}
+func (cfg *raftClient) CleanupThread(_ context.Context) {
+	// leave cleanup to Close() API
 }
 
 func (cfg *raftClient) Read(ctx context.Context, table string, key string, fields []string) (map[string][]byte, error) {
