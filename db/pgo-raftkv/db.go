@@ -137,12 +137,6 @@ func (cfg *raftClient) Read(ctx context.Context, table string, key string, field
 		}
 	}
 retry:
-	select {
-	case out := <-client.outCh:
-		fmt.Printf("stale client response: %v\n", out)
-	default: // pass
-	}
-
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
 		{Key: tla.MakeTLAString("type"), Value: raftkvs.Get(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
@@ -151,9 +145,7 @@ retry:
 	for {
 		select {
 		case resp := <-client.outCh:
-			if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
-				continue // the client will retry for us
-			}
+			assert(resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool())
 			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
 			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
 			respKey := mresp.ApplyFunction(tla.MakeTLAString("key")).AsString()
@@ -214,12 +206,6 @@ func (cfg *raftClient) Insert(ctx context.Context, table string, key string, val
 	}
 	kvFn := tla.MakeTLARecord(kvPairs)
 retry:
-	select {
-	case out := <-client.outCh:
-		fmt.Printf("stale client response: %v\n", out)
-	default: // pass
-	}
-
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
 		{Key: tla.MakeTLAString("type"), Value: raftkvs.Put(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
@@ -229,9 +215,7 @@ retry:
 	for {
 		select {
 		case resp := <-client.outCh:
-			if !resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool() {
-				continue // the client will retry for us
-			}
+			assert(resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool())
 			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
 			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
 			respKey := mresp.ApplyFunction(tla.MakeTLAString("key")).AsString()
