@@ -179,7 +179,10 @@ func main() {
 
 	globalCancel()
 	if globalDB != nil {
-		globalDB.Close()
+		err := globalDB.Close()
+		if err != nil {
+			fmt.Printf("err closing DB: %v\n", err)
+		}
 	}
 
 	if globalWorkload != nil {

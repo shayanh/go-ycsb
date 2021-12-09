@@ -48,6 +48,9 @@ func (cfg *raftClient) Close() error {
 		client.clientCtx.Stop()
 		err = multierr.Append(err, <-client.errCh)
 	}
+	if err != nil {
+		fmt.Printf("error closing RaftKV clients %v\n", err)
+	}
 	return err
 }
 
