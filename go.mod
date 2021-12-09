@@ -58,11 +58,11 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 // fix not in main etc client API yet, it seems
 // replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
-replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209043845-8d2be0047f8d
+replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209045243-c23b4f3f7c0f
 
 //replace example.org/raftkvs => ../pgo/test/files/general/raftkvs.tla.gotests
 
-replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211209043845-8d2be0047f8d
+replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211209045243-c23b4f3f7c0f
 
 //replace github.com/UBC-NSS/pgo/distsys => ../pgo/distsys
 

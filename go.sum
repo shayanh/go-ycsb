@@ -4,10 +4,10 @@ github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 h1:PqzgE6kAMi
 github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7/go.mod h1:bOvUY6CB00SOBii9/FifXqc0awNKxLFCL/+pkDPuyl8=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
-github.com/UBC-NSS/pgo/distsys v0.0.0-20211209043845-8d2be0047f8d h1:vYfYjEk9giT/URGwNsCt/72cSueEE2wEqdL1BQ6mf6M=
-github.com/UBC-NSS/pgo/distsys v0.0.0-20211209043845-8d2be0047f8d/go.mod h1:bv6ls+JLrK++u9WlRSqCTiSWi+Gv9dWnMe/SF54iPek=
-github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209043845-8d2be0047f8d h1:2PqwguPQBF+zqzPRp4vA99rzcqB7V30xQPDGxTQZEcU=
-github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209043845-8d2be0047f8d/go.mod h1:kjvApGYoBglE/2le9VMTyQq/9PibIhM4bwJB5JwoPXs=
+github.com/UBC-NSS/pgo/distsys v0.0.0-20211209045243-c23b4f3f7c0f h1:4qebl8KR4o72Eny/Y6BwsrCZrNES0JFBjChTdHY+eCI=
+github.com/UBC-NSS/pgo/distsys v0.0.0-20211209045243-c23b4f3f7c0f/go.mod h1:bv6ls+JLrK++u9WlRSqCTiSWi+Gv9dWnMe/SF54iPek=
+github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209045243-c23b4f3f7c0f h1:pLgRQXl1Vn4n/ZQLVb6GKZ4qF+Uzn/0i9tJECgi0Upw=
+github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211209045243-c23b4f3f7c0f/go.mod h1:kjvApGYoBglE/2le9VMTyQq/9PibIhM4bwJB5JwoPXs=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c h1:3fAhdHMhoSG57DjJ/dqLFfgD+FoooPbQH6szINbrr3k=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c/go.mod h1:KcL6D/4RZ8RAYzQ5gKI0odcdWUmCVlbQTOlWrhP71CY=
 github.com/aerospike/aerospike-client-go v1.35.2 h1:TWV2Bn59Ig7SM4Zue84fFsPGlfFJX/6xbuGHyYFS/ag=
