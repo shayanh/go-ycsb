@@ -58,7 +58,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 	}
 	self := tla.MakeTLAString(cfg.clientReplyPoints[threadIdx])
 	inChan := make(chan tla.TLAValue)
-	outChan := make(chan tla.TLAValue, 1)
+	outChan := make(chan tla.TLAValue)
 	timeoutCh := make(chan tla.TLAValue, 1)
 	clientCtx := distsys.NewMPCalContext(self, raftkvs.AClient,
 		distsys.EnsureMPCalContextConfigs(constants...),
