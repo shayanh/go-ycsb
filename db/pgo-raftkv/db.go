@@ -11,6 +11,7 @@ import (
 	"github.com/magiconair/properties"
 	"github.com/pingcap/go-ycsb/pkg/ycsb"
 	"go.uber.org/multierr"
+	"log"
 	"strings"
 	"time"
 )
@@ -65,7 +66,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 		distsys.DefineConstantValue("NumServers", tla.MakeTLANumber(int32(numServers))),
 		distsys.DefineConstantValue("ExploreFail", tla.TLA_FALSE),
 		distsys.DefineConstantValue("KeySet", tla.MakeTLASet()), // at runtime, we support growing the key set
-		distsys.DefineConstantValue("Debug", tla.TLA_FALSE),
+		distsys.DefineConstantValue("Debug", tla.TLA_TRUE),
 	}
 	self := tla.MakeTLAString(cfg.clientReplyPoints[threadIdx])
 	inChan := make(chan tla.TLAValue)
@@ -145,6 +146,7 @@ retry:
 	for {
 		select {
 		case resp := <-client.outCh:
+			log.Printf("[get] %s received %v", client.clientCtx.IFace().Self().AsString(), resp)
 			assert(resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool())
 			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
 			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
@@ -215,6 +217,7 @@ retry:
 	for {
 		select {
 		case resp := <-client.outCh:
+			log.Printf("[put] %s received %v", client.clientCtx.IFace().Self().AsString(), resp)
 			assert(resp.ApplyFunction(tla.MakeTLAString("msuccess")).AsBool())
 			typ := resp.ApplyFunction(tla.MakeTLAString("mtype"))
 			mresp := resp.ApplyFunction(tla.MakeTLAString("mresponse"))
