@@ -73,7 +73,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 	timeoutCh := make(chan tla.TLAValue, 1)
 	clientCtx := distsys.NewMPCalContext(self, raftkvs.AClient,
 		distsys.EnsureMPCalContextConfigs(constants...),
-		distsys.EnsureArchetypeRefParam("net", resources.TCPMailboxesMaker(func(idx tla.TLAValue) (resources.MailboxKind, string) {
+		distsys.EnsureArchetypeRefParam("net", resources.RelaxedMailboxesMaker(func(idx tla.TLAValue) (resources.MailboxKind, string) {
 			if idx.Equal(self) {
 				return resources.MailboxesLocal, idx.AsString()
 			} else if idx.IsNumber() && int(idx.AsNumber()) <= len(cfg.endpoints) {
