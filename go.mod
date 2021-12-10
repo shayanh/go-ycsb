@@ -25,6 +25,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gocql/gocql v0.0.0-20181124151448-70385f88b28b
 	github.com/golang/snappy v0.0.2-0.20190904063534-ff6b7dc882cf // indirect
+	github.com/google/uuid v1.1.2
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.1.1
 	github.com/magiconair/properties v1.8.0
@@ -58,11 +59,11 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 // fix not in main etc client API yet, it seems
 // replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
-replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211210002241-5ee1fd4dca72
+replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211210202550-6c24ef74e0fa
 
 //replace example.org/raftkvs => ../pgo/test/files/general/raftkvs.tla.gotests
 
-replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211210002241-5ee1fd4dca72
+replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211210202550-6c24ef74e0fa
 
 //replace github.com/UBC-NSS/pgo/distsys => ../pgo/distsys
 
