@@ -97,7 +97,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 			resources.WithFailureDetectorTimeout(200*time.Millisecond),
 		)),
 		distsys.EnsureArchetypeRefParam("in", resources.InputChannelMaker(inChan)),
-		distsys.EnsureArchetypeRefParam("out", resources.SingleOutputChannelMaker(outChan)),
+		distsys.EnsureArchetypeRefParam("out", resources.OutputChannelMaker(outChan)),
 		distsys.EnsureArchetypeDerivedRefParam("netLen", "net", resources.MailboxesLengthMaker),
 		distsys.EnsureArchetypeRefParam("timeout", resources.InputChannelMaker(timeoutCh)))
 
