@@ -137,7 +137,6 @@ func (cfg *raftClient) Read(ctx context.Context, table string, key string, field
 			fieldFilter[field] = true
 		}
 	}
-retry:
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
 		{Key: tla.MakeTLAString("type"), Value: raftkvs.Get(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
@@ -175,7 +174,6 @@ retry:
 			default:
 			}
 			client.timeoutCh <- tla.TLA_TRUE
-			goto retry
 		}
 	}
 }
@@ -207,7 +205,6 @@ func (cfg *raftClient) Insert(ctx context.Context, table string, key string, val
 		})
 	}
 	kvFn := tla.MakeTLARecord(kvPairs)
-retry:
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
 		{Key: tla.MakeTLAString("type"), Value: raftkvs.Put(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
@@ -233,7 +230,6 @@ retry:
 			default:
 			}
 			client.timeoutCh <- tla.TLA_TRUE
-			goto retry
 		}
 	}
 }
