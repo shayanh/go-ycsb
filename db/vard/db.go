@@ -6,7 +6,7 @@ import (
 	"database/sql"
 	"encoding/base32"
 	"encoding/binary"
-	"encoding/json"
+	"encoding/gob"
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/magiconair/properties"
@@ -167,7 +167,8 @@ func (conf *vardConfig) Read(ctx context.Context, table string, key string, fiel
 		return nil, err
 	}
 	data := results[2]
-	decoder := json.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
+	//decoder := json.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
+	decoder := gob.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
 	var result map[string][]byte
 	err = decoder.Decode(&result)
 	if err != nil {
@@ -207,7 +208,8 @@ func (conf *vardConfig) Update(ctx context.Context, table string, key string, va
 func (conf *vardConfig) Insert(ctx context.Context, table string, key string, values map[string][]byte) error {
 	var packedValueBuf strings.Builder
 	b32Encoder := base32.NewEncoder(safeEncoding, &packedValueBuf)
-	encoder := json.NewEncoder(b32Encoder)
+	//encoder := json.NewEncoder(b32Encoder)
+	encoder := gob.NewEncoder(b32Encoder)
 	err := encoder.Encode(&values)
 	if err != nil {
 		panic(err)
