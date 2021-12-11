@@ -162,18 +162,18 @@ func (conf *vardConfig) CleanupThread(ctx context.Context) {
 }
 
 func (conf *vardConfig) Read(ctx context.Context, table string, key string, fields []string) (map[string][]byte, error) {
-	results, err := conf.procMsg(ctx, "GET", table+"/"+key, "-", "-")
+	_, err := conf.procMsg(ctx, "GET", table+"/"+key, "-", "-")
 	if err != nil {
 		return nil, err
 	}
-	data := results[2]
-	//decoder := json.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
-	decoder := gob.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
-	var result map[string][]byte
-	err = decoder.Decode(&result)
-	if err != nil {
-		panic(err)
-	}
+	result := make(map[string][]byte)
+	//data := results[2]
+	//decoder := gob.NewDecoder(base32.NewDecoder(safeEncoding, bytes.NewBufferString(data)))
+	//var result map[string][]byte
+	//err = decoder.Decode(&result)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	if fields != nil {
 		includeField := make(map[string]bool)
@@ -208,7 +208,6 @@ func (conf *vardConfig) Update(ctx context.Context, table string, key string, va
 func (conf *vardConfig) Insert(ctx context.Context, table string, key string, values map[string][]byte) error {
 	var packedValueBuf strings.Builder
 	b32Encoder := base32.NewEncoder(safeEncoding, &packedValueBuf)
-	//encoder := json.NewEncoder(b32Encoder)
 	encoder := gob.NewEncoder(b32Encoder)
 	err := encoder.Encode(&values)
 	if err != nil {
@@ -216,7 +215,7 @@ func (conf *vardConfig) Insert(ctx context.Context, table string, key string, va
 	}
 	_ = b32Encoder.Close() // add padding to end
 
-	_, err = conf.procMsg(ctx, "PUT", table+"/"+key, packedValueBuf.String(), "-")
+	_, err = conf.procMsg(ctx, "PUT", table+"/"+key, fmt.Sprintf("%d", packedValueBuf.Len()), "-")
 	return err
 }
 
