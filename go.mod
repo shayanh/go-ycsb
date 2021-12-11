@@ -15,7 +15,6 @@ require (
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1 // indirect
 	github.com/dgraph-io/badger v1.5.4
-	github.com/dgryski/go-farm v0.0.0-20190423205320-6a90982ecee2 // indirect
 	github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51 // indirect
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/facebookgo/subset v0.0.0-20150612182917-8dac2c3c4870 // indirect
@@ -24,7 +23,6 @@ require (
 	github.com/go-redis/redis v6.15.1+incompatible
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gocql/gocql v0.0.0-20181124151448-70385f88b28b
-	github.com/golang/snappy v0.0.2-0.20190904063534-ff6b7dc882cf // indirect
 	github.com/google/uuid v1.1.2
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.1.1
@@ -59,11 +57,11 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 // fix not in main etc client API yet, it seems
 // replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
-replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211211071859-f87408ad5020
+replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211210214902-99aa05c76490
 
 //replace example.org/raftkvs => ../pgo/test/files/general/raftkvs.tla.gotests
 
-replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211211071859-f87408ad5020
+replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211210214902-99aa05c76490
 
 //replace github.com/UBC-NSS/pgo/distsys => ../pgo/distsys
 
