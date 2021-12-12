@@ -3,6 +3,7 @@ package pgo_raftkv
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"example.org/raftkvs"
 	"fmt"
 	"github.com/UBC-NSS/pgo/distsys"
@@ -26,6 +27,7 @@ type raftClient struct {
 	endpointMonitors  map[string]string
 	clientReplyPoints []string
 	requestTimeout    time.Duration
+	useInts           bool
 
 	clientThreads []*raftClientThread
 }
@@ -156,6 +158,10 @@ func (cfg *raftClient) Read(ctx context.Context, table string, key string, field
 				return nil, fmt.Errorf("key not found: %s", keyStr)
 			}
 
+			if cfg.useInts {
+				// short-circuit attempting to parse the result, it's a random int
+				return make(map[string][]byte), nil
+			}
 			result := make(map[string][]byte)
 			it := mresp.ApplyFunction(tla.MakeTLAString("value")).AsFunction().Iterator()
 			for !it.Done() {
@@ -196,14 +202,23 @@ func (cfg *raftClient) Insert(ctx context.Context, table string, key string, val
 	client := ctx.Value(threadIdxTag{}).(*raftClientThread)
 	keyStr := table + "/" + key
 
-	var kvPairs []tla.TLARecordField
-	for k := range values {
-		kvPairs = append(kvPairs, tla.TLARecordField{
-			Key:   tla.MakeTLAString(k),
-			Value: tla.MakeTLAString(string(values[k])),
-		})
-	}
-	kvFn := tla.MakeTLARecord(kvPairs)
+	kvFn := func() tla.TLAValue {
+		if cfg.useInts {
+			valuesBytes, err := json.Marshal(&values)
+			if err != nil {
+				panic(err)
+			}
+			return tla.MakeTLAString(fmt.Sprintf("%d", len(valuesBytes)))
+		}
+		var kvPairs []tla.TLARecordField
+		for k := range values {
+			kvPairs = append(kvPairs, tla.TLARecordField{
+				Key:   tla.MakeTLAString(k),
+				Value: tla.MakeTLAString(string(values[k])),
+			})
+		}
+		return tla.MakeTLARecord(kvPairs)
+	}()
 	client.inCh <- tla.MakeTLARecord([]tla.TLARecordField{
 		{Key: tla.MakeTLAString("type"), Value: raftkvs.Put(client.clientCtx.IFace())},
 		{Key: tla.MakeTLAString("key"), Value: tla.MakeTLAString(keyStr)},
@@ -242,6 +257,7 @@ const (
 	pgoRaftKVEndpointMonitors  = "pgo-raftkv.endpointmonitors"
 	pgoRaftKVClientReplyPoints = "pgo-raftkv.clientreplypoints"
 	pgoRaftKVRequestTimeout    = "pgo-raftkv.requesttimeout"
+	pgoRaftKVUseInts           = "ycsb.useints"
 )
 
 type raftCreator struct{}
@@ -275,6 +291,7 @@ func (_ raftCreator) Create(props *properties.Properties) (ycsb.DB, error) {
 		endpointMonitors:  endPointMonitorMap,
 		clientReplyPoints: strings.Split(clientReplyPoints, ","),
 		requestTimeout:    props.GetParsedDuration(pgoRaftKVRequestTimeout, time.Second*1),
+		useInts:           props.GetBool(pgoRaftKVUseInts, false),
 	}, nil
 }
 

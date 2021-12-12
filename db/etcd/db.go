@@ -20,7 +20,8 @@ func assert(cond bool) {
 }
 
 type etcdClient struct {
-	client *clientv3.Client
+	client  *clientv3.Client
+	useInts bool
 }
 
 func (etcd *etcdClient) ToSqlDB() *sql.DB {
@@ -58,6 +59,11 @@ func (etcd *etcdClient) readCount(ctx context.Context, table string, key string,
 				currentKeyStr = kStr
 			}
 
+			if etcd.useInts {
+				// don't bother parsing, it's just ints
+				results = append(results, make(map[string][]byte))
+				continue
+			}
 			var result map[string][]byte
 			err = json.Unmarshal(kv.Value, &result)
 			if err != nil {
@@ -115,8 +121,14 @@ func (etcd *etcdClient) Insert(ctx context.Context, table string, key string, va
 	if err != nil {
 		return err
 	}
+	var content string
+	if etcd.useInts {
+		content = fmt.Sprintf("%d", len(valuesBytes))
+	} else {
+		content = string(valuesBytes)
+	}
 	// don't think there's anything useful we can do with response in this case
-	_, err = etcd.client.Put(ctx, table+"/"+key, string(valuesBytes))
+	_, err = etcd.client.Put(ctx, table+"/"+key, content)
 	return err
 }
 
@@ -130,6 +142,7 @@ type etcdCreator struct{}
 const (
 	etcdEndpoints   = "etcd.endpoints"
 	etcdDialTimeout = "etcd.dialtimeout"
+	etcdUseInts     = "ycsb.useints"
 )
 
 func (crt etcdCreator) Create(prop *properties.Properties) (ycsb.DB, error) {
@@ -147,7 +160,8 @@ func (crt etcdCreator) Create(prop *properties.Properties) (ycsb.DB, error) {
 		return nil, err
 	}
 	return &etcdClient{
-		client: client,
+		client:  client,
+		useInts: prop.GetBool(etcdUseInts, false),
 	}, nil
 }
 

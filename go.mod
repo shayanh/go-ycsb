@@ -20,7 +20,7 @@ require (
 	github.com/facebookgo/subset v0.0.0-20150612182917-8dac2c3c4870 // indirect
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/go-ini/ini v1.49.0 // indirect
-	github.com/go-redis/redis v6.15.1+incompatible
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gocql/gocql v0.0.0-20181124151448-70385f88b28b
 	github.com/google/uuid v1.1.2
@@ -29,8 +29,6 @@ require (
 	github.com/magiconair/properties v1.8.0
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible
 	github.com/minio/minio-go v6.0.14+incompatible
-	github.com/onsi/ginkgo v1.7.0 // indirect
-	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/pingcap/errors v0.11.5-0.20201126102027-b0a155152ca3
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect
 	github.com/spf13/cobra v1.0.0
@@ -44,11 +42,9 @@ require (
 	go.mongodb.org/mongo-driver v1.0.2
 	go.uber.org/multierr v1.7.0
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
-	golang.org/x/text v0.3.6 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.42.0 // indirect
 	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-20171203172758-327ebb6c2b6d
