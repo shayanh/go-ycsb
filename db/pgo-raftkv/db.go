@@ -67,7 +67,7 @@ func (cfg *raftClient) InitThread(ctx context.Context, threadIdx int, threadCoun
 		distsys.DefineConstantValue("NumServers", tla.MakeTLANumber(int32(numServers))),
 		distsys.DefineConstantValue("ExploreFail", tla.TLA_FALSE),
 		distsys.DefineConstantValue("KeySet", tla.MakeTLASet()), // at runtime, we support growing the key set
-		distsys.DefineConstantValue("Debug", tla.TLA_FALSE),
+		distsys.DefineConstantValue("Debug", tla.TLA_TRUE),
 	}
 	self := tla.MakeTLAString(cfg.clientReplyPoints[threadIdx])
 	inChan := make(chan tla.TLAValue)
