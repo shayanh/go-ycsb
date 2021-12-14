@@ -188,8 +188,8 @@ func (c *Client) Run(ctx context.Context) {
 		// finish warming up
 		measurement.EnableWarmUp(false)
 
-		//dur := c.p.GetInt64(prop.LogInterval, 10)
-		t := time.NewTicker(20 * time.Millisecond)
+		dur := c.p.GetInt64(prop.LogInterval, 10)
+		t := time.NewTicker(time.Duration(dur) * time.Second)
 		defer t.Stop()
 
 		for {
