@@ -1,6 +1,7 @@
 module github.com/pingcap/go-ycsb
 
 require (
+	example.org/pbkvs v0.0.0-00010101000000-000000000000
 	example.org/raftkvs v0.0.0-00010101000000-000000000000
 	github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 // indirect
 	github.com/UBC-NSS/pgo/distsys v0.0.0-00010101000000-000000000000
@@ -53,11 +54,15 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-201712031727
 // fix not in main etc client API yet, it seems
 // replace google.golang.org/grpc => google.golang.org/grpc v1.29.1
 
-replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211210214902-99aa05c76490
+replace example.org/raftkvs => github.com/UBC-NSS/pgo/test/files/general/raftkvs.tla.gotests v0.0.0-20211214025445-8c8fc5b8dc41
+
+replace example.org/pbkvs => github.com/UBC-NSS/pgo/test/files/general/pbkvs.tla.gotests v0.0.0-20211214025445-8c8fc5b8dc41
 
 //replace example.org/raftkvs => ../pgo/test/files/general/raftkvs.tla.gotests
 
-replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211210214902-99aa05c76490
+//replace example.org/pbkvs => ../pgo/test/files/general/pbkvs.tla.gotests
+
+replace github.com/UBC-NSS/pgo/distsys => github.com/UBC-NSS/pgo/distsys v0.0.0-20211214025445-8c8fc5b8dc41
 
 //replace github.com/UBC-NSS/pgo/distsys => ../pgo/distsys
 
