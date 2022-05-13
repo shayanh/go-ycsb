@@ -93,6 +93,7 @@ func (r *raftKVS) Read(ctx context.Context, table string, key string, fields []s
 
 	resp := <-thread.respCh
 	if !resp.OK {
+		log.Println("key not found")
 		return nil, fmt.Errorf("key not found")
 	}
 
@@ -103,6 +104,7 @@ func (r *raftKVS) Read(ctx context.Context, table string, key string, fields []s
 	data := make(map[string][]byte, len(fields))
 	err := json.Unmarshal([]byte(resp.Value), &data)
 	if err != nil {
+		log.Printf("json error: %v", err)
 		return nil, err
 	}
 

@@ -1,9 +1,9 @@
 numServers: 3
 numClients: 3
 
-debug: true
+debug: false 
 
-clientRequestTimeout: 200ms
+clientRequestTimeout: 1500ms
 
 fd:
   pullInterval: 200ms
