@@ -2,7 +2,7 @@ module github.com/pingcap/go-ycsb
 
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 // indirect
-	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220519064655-8e984db3dd52
+	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220519232803-97e106c5755e
 	github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c
 	github.com/aerospike/aerospike-client-go v1.35.2
 	github.com/apache/thrift v0.0.0-20171203172758-327ebb6c2b6d // indirect
@@ -41,6 +41,8 @@ require (
 )
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.0.0-20171203172758-327ebb6c2b6d
+
+// replace github.com/DistCompiler/pgo/systems/raftkvs => /Users/shayan/src/github.com/DistCompiler/pgo/systems/raftkvs
 
 // https://github.com/etcd-io/etcd/issues/12124
 // fix not in main etc client API yet, it seems
