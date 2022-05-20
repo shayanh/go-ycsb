@@ -2,7 +2,7 @@ module github.com/pingcap/go-ycsb
 
 require (
 	github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 // indirect
-	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520003007-122f0c214a4c
+	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520080635-b5451a97da79
 	github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c
 	github.com/aerospike/aerospike-client-go v1.35.2
 	github.com/apache/thrift v0.0.0-20171203172758-327ebb6c2b6d // indirect

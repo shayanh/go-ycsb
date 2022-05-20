@@ -1,7 +1,7 @@
 numServers: 3
 numClients: 8
 
-debug: true
+debug: false
 
 clientRequestTimeout: 1000ms
 
