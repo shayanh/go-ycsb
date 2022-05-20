@@ -57,12 +57,12 @@ github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7/go.mod h1:bOv
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220519232803-97e106c5755e h1:K7V1mpU8fI+J5i7+GZlTKSEQSmmb9T5h4XN0rUQzpDw=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220519232803-97e106c5755e/go.mod h1:aadcDlL5y1VMpX2j6Qbf87ynWCJe906U5fzAfa5yD7c=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520003007-122f0c214a4c h1:7i7WYRaaihpDJPX+xov9UltvTxRaPNsYQ/gNlY6TrdI=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520003007-122f0c214a4c/go.mod h1:qev7Gj5iYvYObIjP3wDY2rDUN1NQ8uob14/U0Wbq2WI=
 github.com/OneOfOne/xxhash v1.2.2 h1:KMrpdQIwFcEqXDklaen+P1axHaj9BSKzvpUUfnHldSE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
-github.com/UBC-NSS/pgo/distsys v0.0.0-20220519232524-c1330b11984b h1:AEcLgAez+p/A6ToefzQ2QeAJU+2kiWozzo1IinnsrgU=
-github.com/UBC-NSS/pgo/distsys v0.0.0-20220519232524-c1330b11984b/go.mod h1:GIARk33Z3O9GVHN3ff1+NdtuDC/BC94hGGfrntOPP+k=
+github.com/UBC-NSS/pgo/distsys v0.0.0-20220520002725-e1ba761cdbe1 h1:6Z4YQ8vTa2NSbFl/oNkYf3bqScojkHm7xJ7jJ53DkQI=
+github.com/UBC-NSS/pgo/distsys v0.0.0-20220520002725-e1ba761cdbe1/go.mod h1:lA/IOk+MYaXc1KAlAi8xVL54RvViJtj8uGuwv95c7RE=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c h1:3fAhdHMhoSG57DjJ/dqLFfgD+FoooPbQH6szINbrr3k=
 github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c/go.mod h1:KcL6D/4RZ8RAYzQ5gKI0odcdWUmCVlbQTOlWrhP71CY=
 github.com/aerospike/aerospike-client-go v1.35.2 h1:TWV2Bn59Ig7SM4Zue84fFsPGlfFJX/6xbuGHyYFS/ag=
@@ -461,6 +461,8 @@ github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQD
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/sagikazarmark/crypt v0.5.0/go.mod h1:l+nzl7KWh51rpzp2h7t4MZWyiEWdhNpOAnclKvg+mdA=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
+github.com/segmentio/fasthash v1.0.3 h1:EI9+KE1EwvMLBWwjpRDc+fEM+prwxDYbslddQGtrmhM=
+github.com/segmentio/fasthash v1.0.3/go.mod h1:waKX8l2N8yckOgmSsXJi7x1ZfdKZ4x7KRMzBtS3oedY=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
