@@ -57,8 +57,8 @@ github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7/go.mod h1:bOv
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520080635-b5451a97da79 h1:Ymh6QLPrMtxplNuTg8pSHUtMYOkXp+8tYQvZAk7MQ3g=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220520080635-b5451a97da79/go.mod h1:qev7Gj5iYvYObIjP3wDY2rDUN1NQ8uob14/U0Wbq2WI=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220525211335-e33664992adc h1:9IKi1d3ARJfvn4xY192qlK+lGpSDIYZ6hGzunDdqfe8=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220525211335-e33664992adc/go.mod h1:qev7Gj5iYvYObIjP3wDY2rDUN1NQ8uob14/U0Wbq2WI=
 github.com/OneOfOne/xxhash v1.2.2 h1:KMrpdQIwFcEqXDklaen+P1axHaj9BSKzvpUUfnHldSE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/UBC-NSS/pgo/distsys v0.0.0-20220520002725-e1ba761cdbe1 h1:6Z4YQ8vTa2NSbFl/oNkYf3bqScojkHm7xJ7jJ53DkQI=
