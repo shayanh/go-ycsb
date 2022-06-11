@@ -73,6 +73,8 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/vard"
 	// Register RaftKVS
 	_ "github.com/pingcap/go-ycsb/db/raftkvs"
+	// Register RaftRes
+	_ "github.com/pingcap/go-ycsb/db/raftres"
 )
 
 var (
