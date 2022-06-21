@@ -3,7 +3,7 @@ numClients: 8
 
 debug: false
 
-clientRequestTimeout: 1000ms
+clientRequestTimeout: 1s
 
 fd:
   pullInterval: 200ms
