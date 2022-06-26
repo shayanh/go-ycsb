@@ -40,10 +40,10 @@ github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7 h1:PqzgE6kAMi
 github.com/AndreasBriese/bbloom v0.0.0-20180913140656-343706a395b7/go.mod h1:bOvUY6CB00SOBii9/FifXqc0awNKxLFCL/+pkDPuyl8=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220621195401-4a306d880466 h1:j1/mKtMeCDaRp91e+tPgitet6xZ0osogXQJ8rg41X48=
-github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220621195401-4a306d880466/go.mod h1:leD/ZcAEA66irsU6cBVsYrV2au2E7rGAhT1bgQpZ0Ug=
-github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220621195401-4a306d880466 h1:a6MKkj1rJuDz2YDAtZxX09GNPgZsTwut/lKh3HaTE4M=
-github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220621195401-4a306d880466/go.mod h1:NcGeMWRUvgngW81Ouz6gOYqkOI8OM6btQj1UF/B67Oc=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220626065148-c72e8329d0d2 h1:syPh9FH6csNIS4sZI/K8O75C8EbUOnoUsahmioxj5AU=
+github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220626065148-c72e8329d0d2/go.mod h1:leD/ZcAEA66irsU6cBVsYrV2au2E7rGAhT1bgQpZ0Ug=
+github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220626065148-c72e8329d0d2 h1:i6B8DdO/3EtWOJ+vvoAsCQp7PB1wNulPwVwV4cbGD28=
+github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220626065148-c72e8329d0d2/go.mod h1:NcGeMWRUvgngW81Ouz6gOYqkOI8OM6btQj1UF/B67Oc=
 github.com/OneOfOne/xxhash v1.2.2 h1:KMrpdQIwFcEqXDklaen+P1axHaj9BSKzvpUUfnHldSE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/UBC-NSS/pgo/distsys v0.0.0-20220610234707-68b6fb283991 h1:q+TfYGZgiW5ggDbro76N5ZYDawbHoKxVRmZwQ1kqu0c=
