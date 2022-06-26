@@ -1,8 +1,8 @@
 module github.com/pingcap/go-ycsb
 
 require (
-	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220626072158-c49b7f1b5294
-	github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220626072158-c49b7f1b5294
+	github.com/DistCompiler/pgo/systems/raftkvs v0.0.0-20220626202717-cade91f85a2c
+	github.com/DistCompiler/pgo/systems/raftres v0.0.0-20220626202717-cade91f85a2c
 	github.com/XiaoMi/pegasus-go-client v0.0.0-20181029071519-9400942c5d1c
 	github.com/aerospike/aerospike-client-go v1.35.2
 	github.com/apple/foundationdb/bindings/go v0.0.0-20200112054404-407dc0907f4f
