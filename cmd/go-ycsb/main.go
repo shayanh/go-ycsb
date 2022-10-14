@@ -71,10 +71,12 @@ import (
 	_ "github.com/pingcap/go-ycsb/db/etcd"
 	// Register vard
 	_ "github.com/pingcap/go-ycsb/db/vard"
-	// Register RaftKVS
+	// Register raftkvs
 	_ "github.com/pingcap/go-ycsb/db/raftkvs"
-	// Register RaftRes
+	// Register raftres
 	_ "github.com/pingcap/go-ycsb/db/raftres"
+	// Register pbkvs
+	_ "github.com/pingcap/go-ycsb/db/pbkvs"
 )
 
 var (
